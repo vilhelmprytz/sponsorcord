@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis
+    container_name: sponsorcord_redis
+
+  app:
+    image: prytz/sponsorcord
+    environment:
+      REDIS_HOST: "redis"
+      PORT: "${PORT}"
+      DATABASE_TYPE: "sqlite"
+      TZ: "${TZ}"
+
+      DISCORD_CLIENT_ID: "${DISCORD_CLIENT_ID}"
+      DISCORD_CLIENT_SECRET: "${DISCORD_CLIENT_SECRET}"
+      DISCORD_REDIRECT_URI: "${DISCORD_REDIRECT_URI}"
+      GITHUB_CLIENT_ID: "${GITHUB_CLIENT_ID}"
+      GITHUB_CLIENT_SECRET: "${GITHUB_CLIENT_SECRET}"
+      GITHUB_REDIRECT_URI: "${GITHUB_CLIENT_SECRET}"
+      GITHUB_WEBHOOK_SECRET: "${GITHUB_CLIENT_SECRET}"
+    depends_on:
+      - redis
+    ports:
+      - "${PORT}:${PORT}"
+    expose:
+      - "${PORT}"
+    container_name: sponsorcord_app
+    volumes:
+      - ${DATABASE_PATH}:/var/www/app/database
