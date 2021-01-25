@@ -4,6 +4,7 @@ from os import environ
 from requests import post, get
 from redis import Redis
 from datetime import timedelta
+from github_webhook import Webhook
 
 from orm import db, Sponsor
 
@@ -52,6 +53,7 @@ with app.app_context():
     db.create_all()
 
 Session(app)
+webhook = Webhook(app, endpoint="/github/webhook", secret=GITHUB_WEBHOOK_SECRET)
 
 
 def github_login_url():
@@ -138,19 +140,9 @@ def index():
     return f"Wow, you are a sponsor! Your discord_id has been associated with your github_id. github_id {session['github_id']} and discord_id {session['discord_id']}"
 
 
-@app.route("/github/webhook", methods=["POST"])
+@webhook.hook()
 def github_webhook():
     content = request.json
-
-    if "hook" not in content:
-        abort(400, "Missing hook")
-    if "config" not in content["hook"]:
-        abort(400, "Missing config")
-    if "secret" not in content["hook"]["config"]:
-        abort(400, "Missing secret")
-
-    if content["hook"]["config"]["secret"] != GITHUB_WEBHOOK_SECRET:
-        abort(400, "Invalid secret")
 
     if "action" not in content:
         return "no action, nothing to do"

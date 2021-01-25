@@ -12,6 +12,7 @@ pymysql = "*"
 cryptography = "*"
 flask-session = "*"
 redis = "*"
+github-webhook = "*"
 
 [dev-packages]
 black = "==20.8b1"
