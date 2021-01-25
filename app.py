@@ -142,8 +142,16 @@ def index():
 def github_webhook():
     content = request.json
 
-    if content["secret"] != GITHUB_WEBHOOK_SECRET:
+    if "config" not in content:
+        abort(400, "Missing content")
+    if "secret" not in content["config"]:
+        abort(400, "Missing secret")
+
+    if content["config"]["secret"] != GITHUB_WEBHOOK_SECRET:
         abort(400, "Invalid secret")
+
+    if "action" not in content:
+        return "no action, nothing to do"
 
     if content["action"] == "created":
         sponsor = Sponsor(github_id=int(content["sender"]["id"]))
