@@ -155,7 +155,7 @@ def github_webhook():
         db.session.add(sponsor)
         db.session.commit()
 
-    if content["action"] == "deleted":
+    if content["action"] == "cancelled":
         sponsor = Sponsor.query.get(github_id=int(content["sender"]["id"]))
         db.session.delete(sponsor)
         db.session.commit()
