@@ -9,7 +9,7 @@ DISCORD_GUILD_ID = environ["DISCORD_GUILD_ID"]
 DISCORD_ROLE_ID = environ["DISCORD_ROLE_ID"]
 
 
-def bot_request(url, data, request_type):
+def bot_request(url, request_type):
     if request_type == "put":
         func = put
     if request_type == "delete":
@@ -20,7 +20,7 @@ def bot_request(url, data, request_type):
         "Accept": "application/json",
         "Authorization": f"Bearer {DISCORD_BOT_TOKEN}",
     }
-    r = func(f"{DISCORD_API_ENDPOINT}{url}", data=data, headers=headers)
+    r = func(f"{DISCORD_API_ENDPOINT}{url}", headers=headers)
     r.raise_for_status()
 
     return True
