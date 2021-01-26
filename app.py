@@ -1,12 +1,13 @@
 from flask import Flask, request, abort, redirect, session
 from flask_session import Session
-from os import environ
+from os import environ, remove
 from requests import post, get
 from redis import Redis
 from datetime import timedelta
 from github_webhook import Webhook
 
 from orm import db, Sponsor
+from bot import add_role, remove_role
 
 app = Flask(__name__)
 
@@ -137,6 +138,8 @@ def index():
     db.session.add(sponsor)
     db.session.commit()
 
+    add_role(session["discord_id"])
+
     return f"Wow, you are a sponsor! Your discord_id has been associated with your github_id. github_id {session['github_id']} and discord_id {session['discord_id']}"
 
 
@@ -156,6 +159,14 @@ def github_webhook():
         sponsor = Sponsor.query.get(github_id=int(content["sender"]["id"]))
         db.session.delete(sponsor)
         db.session.commit()
+
+        try:
+            remove_role(sponsor.discord_id)
+        except Exception as e:
+            print(
+                f"tried to remove sponsor with GitHub id {sponsor.github_id} but it failed"
+            )
+            print(str(e))
 
     return "success"
 
