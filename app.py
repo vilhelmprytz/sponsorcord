@@ -134,13 +134,16 @@ def index():
     if not sponsor:
         return f"You are not a sponsor. github_id {session['github_id']} and discord_id {session['discord_id']}"
 
+    if sponsor.discord_id:
+        remove_role(sponsor.discord_id)
+
     sponsor.discord_id = int(session["discord_id"])
     db.session.add(sponsor)
     db.session.commit()
 
     add_role(session["discord_id"])
 
-    return f"Wow, you are a sponsor! Your discord_id has been associated with your github_id. github_id {session['github_id']} and discord_id {session['discord_id']}"
+    return f"Wow, you are a sponsor! Your discord_id has been associated with your github_id and the role should have been added. github_id {session['github_id']} and discord_id {session['discord_id']}"
 
 
 @webhook.hook()
