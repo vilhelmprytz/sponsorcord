@@ -18,7 +18,7 @@ def bot_request(url, request_type):
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         "Accept": "application/json",
-        "Authorization": f"Bearer {DISCORD_BOT_TOKEN}",
+        "Authorization": f"Bot {DISCORD_BOT_TOKEN}",
     }
     r = func(f"{DISCORD_API_ENDPOINT}{url}", headers=headers)
     r.raise_for_status()
