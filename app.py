@@ -146,7 +146,7 @@ def index():
     return f"Wow, you are a sponsor! Your discord_id has been associated with your github_id and the role should have been added. github_id {session['github_id']} and discord_id {session['discord_id']}"
 
 
-@webhook.hook()
+@webhook.hook(event_type="sponsorship")
 def github_webhook(content):
     if "action" not in content:
         return "no action, nothing to do"
@@ -157,7 +157,7 @@ def github_webhook(content):
         db.session.commit()
 
     if content["action"] == "cancelled":
-        sponsor = Sponsor.query.get(github_id=int(content["sender"]["id"]))
+        sponsor = Sponsor.query.get(int(content["sender"]["id"]))
         db.session.delete(sponsor)
         db.session.commit()
 
