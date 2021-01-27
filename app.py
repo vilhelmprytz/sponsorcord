@@ -147,9 +147,7 @@ def index():
 
 
 @webhook.hook()
-def github_webhook():
-    content = request.json
-
+def github_webhook(content):
     if "action" not in content:
         return "no action, nothing to do"
 
