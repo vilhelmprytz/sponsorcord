@@ -4,9 +4,11 @@ services:
   redis:
     image: redis
     container_name: sponsorcord_redis
+    restart: always
 
   app:
     image: prytz/sponsorcord
+    restart: always
     environment:
       REDIS_HOST: "redis"
       PORT: "${PORT}"
