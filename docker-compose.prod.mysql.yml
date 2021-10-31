@@ -20,7 +20,7 @@ services:
       - sponsorcord-mysql:/var/lib/mysql
 
   app:
-    image: prytz/sponsorcord
+    image: "ghcr.io/vilhelmprytz/sponsorcord:latest"
     restart: always
     environment:
       MYSQL_HOST: "mysql"

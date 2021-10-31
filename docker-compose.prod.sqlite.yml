@@ -7,7 +7,7 @@ services:
     restart: always
 
   app:
-    image: prytz/sponsorcord
+    image: "ghcr.io/vilhelmprytz/sponsorcord:latest"
     restart: always
     environment:
       REDIS_HOST: "redis"
