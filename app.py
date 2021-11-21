@@ -51,7 +51,6 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-Session(app)
 webhook = Webhook(app, endpoint="/github/webhook", secret=GITHUB_WEBHOOK_SECRET)
 
 
