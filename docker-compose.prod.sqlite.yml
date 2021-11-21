@@ -5,7 +5,6 @@ services:
     image: "ghcr.io/vilhelmprytz/sponsorcord:latest"
     restart: always
     environment:
-      REDIS_HOST: "redis"
       PORT: "${PORT}"
       DATABASE_TYPE: "sqlite"
       TZ: "${TZ}"
@@ -22,8 +21,6 @@ services:
       GITHUB_CLIENT_SECRET: "${GITHUB_CLIENT_SECRET}"
       GITHUB_REDIRECT_URI: "${GITHUB_REDIRECT_URI}"
       GITHUB_WEBHOOK_SECRET: "${GITHUB_WEBHOOK_SECRET}"
-    depends_on:
-      - redis
     ports:
       - "${PORT}:${PORT}"
     expose:
