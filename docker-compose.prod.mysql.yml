@@ -1,11 +1,6 @@
 version: "3.8"
 
 services:
-  redis:
-    image: redis
-    container_name: sponsorcord_redis
-    restart: always
-
   mysql:
     image: mysql
     container_name: sponsorcord_mysql

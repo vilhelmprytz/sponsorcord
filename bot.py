@@ -1,8 +1,6 @@
 from requests import put, delete
 from os import environ
 
-from requests.api import request
-
 DISCORD_API_ENDPOINT = "https://discord.com/api/v6"
 DISCORD_BOT_TOKEN = environ["DISCORD_BOT_TOKEN"]
 DISCORD_GUILD_ID = environ["DISCORD_GUILD_ID"]

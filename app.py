@@ -1,8 +1,6 @@
 from flask import Flask, request, abort, redirect, session
-from flask_session import Session
-from os import environ, remove
+from os import environ, urandom
 from requests import post, get
-from redis import Redis
 from datetime import timedelta
 from github_webhook import Webhook
 
@@ -30,8 +28,8 @@ MYSQL_HOST = environ.get("MYSQL_HOST", "127.0.0.1")
 
 DATABASE_TYPE = environ.get("DATABASE_TYPE", "mysql")
 
-app.config["SESSION_TYPE"] = "redis"
-app.config["SESSION_REDIS"] = Redis(host=environ.get("REDIS_HOST", "localhost"), db=0)
+app.secret_key = environ.get("SECRET_KEY", urandom(24))
+
 app.config["SESSION_COOKIE_SAMESITE"] = "Strict"
 app.config["SESSION_PERMANENT"] = True
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=1)
