@@ -30,7 +30,7 @@ DATABASE_TYPE = environ.get("DATABASE_TYPE", "mysql")
 
 app.secret_key = environ.get("SECRET_KEY", urandom(24))
 
-app.config["SESSION_COOKIE_SAMESITE"] = "Strict"
+# app.config["SESSION_COOKIE_SAMESITE"] = "Strict"
 app.config["SESSION_PERMANENT"] = True
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=1)
 
