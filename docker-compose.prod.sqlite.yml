@@ -22,7 +22,7 @@ services:
       GITHUB_REDIRECT_URI: "${GITHUB_REDIRECT_URI}"
       GITHUB_WEBHOOK_SECRET: "${GITHUB_WEBHOOK_SECRET}"
     ports:
-      - "${PORT}:${PORT}"
+      - "127.0.0.1:${PORT}:${PORT}"
     expose:
       - "${PORT}"
     container_name: sponsorcord_app
